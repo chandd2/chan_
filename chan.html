@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>나의 이야기 게임</title>
+</head>
+<body>
+
+<div class="intro-box">
+ <h1>나만의 텍스트 게임</h1>
+ <button onclick="startGame()">게임 시작</button>
+</div>
+
+<script>
+function startGame() {
+    let coin = 0
+    let name = prompt("당신의 이름은?");
+    alert("환영합니다, " + name + "님!");
+
+    let path = prompt("당신은 어두운 길을 걷고 있습니다. 왼쪽 / 오른쪽 중 선택하세요");
+
+    if (['왼', '왼쪽', 'left'].includes(path)) {
+        coin += findTreasure();
+    } else if (['오', '오른쪽', 'right'].includes(path)) {
+        coin += meetMonster();
+    } else {
+        alert("당신은 길을 잃었습니다...");
+    }
+
+    let p2 = prompt("당신은 잔디밭을 걷고 있습니다. 왼쪽 / 오른쪽 중 선택하세요");
+
+    if (['왼', '왼쪽', 'left'].includes(p2)) {
+        coin += hole();
+    } else if (['오', '오른쪽', 'right'].includes(p2)) {
+        coin += findTreasure();
+    } else {
+        alert("당신은 길을 잃었습니다...");
+    }
+
+    coin += meetMonster(coin)
+
+    coin += hole()
+    alert("최종상금: " + coin);
+}
+
+function findTreasure() {
+    let open = prompt("보물 상자를 발견했습니다! 열겠습니까? (예/아니요)");
+    if (open === "예" | open=='yes') {
+        alert("금화 100개를 얻었습니다! 🎉");
+        return 100
+    } else {
+        alert("상자를 두고 그냥 지나쳤습니다.");
+        return 0
+    }
+}
+
+function meetMonster(coin_) {
+    let fight = prompt("괴물이 나타났습니다! 싸우시겠습니까? (예/아니요)");
+    if (fight === "예" | fight=='yes') {
+        alert("당신은 용감하게 싸웠고 이겼습니다!");
+        alert("coin+100!");
+        return 100
+    } else {
+        alert("당신은 도망치며 모든 돈을 빼앗겼습니다.");
+        return 0
+    }
+}
+
+function hole() {
+    let fight = prompt("구멍에 빠졌습니다.도움을 요청하시겠습니까? (예/아니요)");
+    if (fight === "예") {
+        alert("당신의 소리를 듣고 몰려온 멧돼지에게 패배하였습니다다!");
+        alert("coin-50..");
+        return -50
+    } else {
+        alert("당신은 스스로 나왔습니다다.");
+        return 0
+    }
+}
+</script>
+
+
+
+</body>
+</html>
+
